@@ -3,7 +3,7 @@ layout: post
 title: "Meet Homepage - Your HomeLab Services Dashboard"
 date: 2024-01-29 08:00:00 +0100
 categories: self-hosted
-tags: homepage dashboard docker open-source homelab
+tags: [homepage, dashboard, docker, open-source, homelab]
 ---
 
 Meet Homepage, your new HomeLab services dashboard homepage!  Homepage is an open source,  highly customizable homepage (or startpage) dashboard that runs on Docker and is integrated with over 100 API services.  It's easy to set up, looks good by default, and helps you keep track of everything you are running in your HomeLab and more.  Today we'll set up Homepage and get it running in Docker in no time.
