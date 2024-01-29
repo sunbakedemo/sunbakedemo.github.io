@@ -16,7 +16,6 @@ Don't forget to ⭐ [homepage on GitHub](https://github.com/gethomepage/homepage
 
 ## Docker Setup
 
-See [this post](/posts/docker-compose-install/) on how to install `docker` and `docker compose`
 
 ## Install
 
