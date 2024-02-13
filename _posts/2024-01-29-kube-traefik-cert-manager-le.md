@@ -14,8 +14,6 @@ Combat misconfigurations. Empower engineers.
 
 ## Getting Started
 
-If you need to install a new kubernetes cluster you can use my [Ansible Playbook](/posts/k3s-etcd-ansible/) to install one.
-
 ## Resources
 
 ### Helm
