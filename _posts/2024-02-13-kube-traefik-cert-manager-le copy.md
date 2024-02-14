@@ -10,8 +10,6 @@ Traefik, cert-manager, Cloudflare, and Let's Encrypt are a winning combination w
 
 Combat misconfigurations. Empower engineers.
 
-<https://www.datree.io>
-
 ## Getting Started
 
 ## Resources

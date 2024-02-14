@@ -1,0 +1,127 @@
+---
+layout: post
+title: "Installing Grafana Loki with Helm on Kubernetes"
+date: 2021-11-20 7:00:00 -0500
+categories: kubernetes
+tags: homelab proxmox grafana logging promtail prometheus kubernetes helm
+image:
+  path: /assets/img/headers/logs-woods.webp
+  lqip: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAUACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/APww/Z81j4Zx/DnWfBWofBvwnrV9dTxX8vijVDbzar9jkuNKgl05LiPSYtVQQsZJtNuBrX+iGV4biG/gZo2/N8yjjfbLEU8wr04xjf2KjFxunNtpt2i5KSUko20ukm04/ZZZi8qo4aOCr5Dg8VUr1FH61OpKNSKkqWluSTkoOLcL1FJc1nKUVJS+X9b8FfD631nVre38IWEcEGp38MEbRaVIUhiupUjQyPoxZyqKql2+ZiNx5Jr2KWIxjp028VNtwg271N3FdqqX3JLyPCrYDLFWqpYNJKpNJf7O7JSaSvLCuTt3bb7tvU//2Q==
+---
+## Installing helm
+
+Think of `helm` as a package manager for kubernetes. It'a an easy way to bundle and deploy config to kubernetes with versioning.If you need to install `helm` visit [helm.sh](https://helm.sh/docs/intro/install/)
+
+## Installing Loki Stack
+
+First add Loki's chart repository to `helm`
+
+```bash
+helm repo add grafana https://grafana.github.io/helm-charts
+```
+
+Then update the chart repository
+
+```bash
+helm repo update
+```
+
+This command will:
+
+* install grafana
+* install prometheus
+* install loki
+* enable persistence for your stack and create a PVC
+
+```bash
+helm upgrade --install loki grafana/loki-stack  --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false,loki.persistence.enabled=true,loki.persistence.storageClassName=nfs-client,loki.persistence.size=5Gi
+```
+
+You'll want to set `loki.persistence.storageClassName=nfs-client` to your `StorageClass`  
+In this example, I am using `nf-client` which is the [Kubernetes NFS Subdir External Provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
+## Accessing the Grafana Dashboard
+
+To access your Grafana dashboard you can run
+
+```bash
+kubectl port-forward --namespace <YOUR-NAMESPACE> service/loki-grafana 3000:80
+```
+
+To get the password for the `admin` user run
+
+```bash
+kubectl get secret --namespace <YOUR-NAMESPACE> loki-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
+
+This should print out your password
+
+You can now access your dashboard on `http://localhost:3000`
+
+## Ingress with Traefik
+
+If you want to create an `IngressRoute` and you are using traefik can you apply the following
+
+`ingress.yml`
+
+```yml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: loki-grafana-ingress
+  annotations: 
+    kubernetes.io/ingress.class: traefik-internal # change with your value
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`grafana.example.com`) # change with your value
+      kind: Rule
+      services:
+        - name: loki-grafana
+          port: 80
+```
+
+```bash
+kubectl apply -f ingress.yml
+```
+
+You should now be able to access your dashboard on `https://grafana.example.com`
+
+## LogQL sample queries
+
+Query all logs from the `container` label
+
+```sql
+{container="uptime-kuma"} 
+```
+
+query all logs from the `container` stream and filter on `error`
+
+```sql
+{container="uptime-kuma"} |= "error"
+
+```
+
+query all logs from the `pod` label of `uptime-kuma-8d45g32fd-lk8rl`
+
+```sql
+{pod="uptime-kuma-8d45g32fd-lk8rl"}
+
+```
+
+Read more about LogQL [here](https://grafana.com/docs/loki/latest/logql/)
+
+## Upgrading Loki Stack
+
+To upgrade, you run the same command you use to install it, with an updated chart
+
+```bash
+helm repo update
+```
+
+```bash
+helm upgrade --install loki grafana/loki-stack  --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false,loki.persistence.enabled=true,loki.persistence.storageClassName=nfs-client,loki.persistence.size=5Gi
+```
+
+## Links
