@@ -4,6 +4,9 @@ title: "Meet Homepage - Your HomeLab Services Dashboard"
 date: 2024-01-29 08:00:00 +0100
 categories: self-hosted
 tags: [homepage, dashboard, docker, open-source, homelab]
+image:
+ path: /assets/img/headers/homepage-dashboard-hero.webp
+ lqip: data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAf/AABEIAAUACgMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP46v2dvGXwj8WeKvh58NfEX7KnwQ1q7u5NK0PUPHOoeJ/2lo/EWsTvqVqt1req6bo37QejeEV1G5s2uLfytD8O6FpsE0kV3b2MbweXJ8xxzn8+F+GM1z2GH+uf2dhq2JeFeInhVXVKnKp7P6xSjOdNScUm1Gfu3Ti1ofVcB5BS4m4jweU1sRPCwrKTdaFKlXnGzivdp1lKnze9dNxfK0mlc7fXP2QZn1vWHtfH+maZatqmoNbabZeABLZ6fA13MYbK0l1XxdqepyW1pGVggk1HUtQv3ijRry+u7gyTyfilHxwoVqNKr/qlVj7WlTqcq4mxXu88FK2mWpaXtol6LY/oJfR/xTSa40oJNJ2fCOCk1ddZPNG2/N6vd6n//2Q==
 ---
 
 Meet Homepage, your new HomeLab services dashboard homepage!  Homepage is an open source,  highly customizable homepage (or startpage) dashboard that runs on Docker and is integrated with over 100 API services.  It's easy to set up, looks good by default, and helps you keep track of everything you are running in your HomeLab and more.  Today we'll set up Homepage and get it running in Docker in no time.
