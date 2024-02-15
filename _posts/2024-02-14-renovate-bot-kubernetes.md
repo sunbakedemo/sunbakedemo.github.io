@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Meet Renovate - Your Update Automation Bot for Kubernetes and More!"
-date: 2023-07-01 08:00:00 -0500
+date: 2024-01-14 08:00:00 +0100
 categories: kubernetes
 tags: renovate kubernetes docker github gitlab gitops devops automation
 image:

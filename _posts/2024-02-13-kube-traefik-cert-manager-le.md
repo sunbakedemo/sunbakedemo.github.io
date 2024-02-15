@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Wildcard Certificates with Traefik + cert-manager + Let's Encrypt in Kubernetes Tutorial"
-date: 2022-08-06 09:00:00 -0500
+date: 2024-01-13 09:00:00 +0100
 categories: kubernetes
 tags: kubernetes traefik cert-manager k3s cloudflare letsencrypt
 image:

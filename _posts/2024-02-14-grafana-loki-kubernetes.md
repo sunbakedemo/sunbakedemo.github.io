@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Installing Grafana Loki with Helm on Kubernetes"
-date: 2021-11-20 7:00:00 -0500
+date: 2024-01-14 7:00:00 +0100
 categories: kubernetes
 tags: homelab proxmox grafana logging promtail prometheus kubernetes helm
 image:
