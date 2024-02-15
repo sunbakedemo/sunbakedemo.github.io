@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Mirror your Kubernetes configs, secrets, and resources to other namespaces"
-date: 2024-01-13 21:13:00 0100
+date: 2024-01-13 21:13:00 +0100
 categories: homelab
 tags: kubernetes k8s cert-manager reflector helm
 image:
