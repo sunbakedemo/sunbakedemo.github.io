@@ -113,7 +113,7 @@ If we look at this issue, it’s telling us that it detected a new dependency th
 
 If we look at the logs again from Renovate, we can also see that it detected our nginx deployment and that it created a PR for us to review. Now for the actual PR. We should see a new PR that was opened from the Renovate bot!
 
-If we [look at this PR](https://github.com/sunbakedemo/k8s-renovate/pull/3) we can see the proposed changes, it's suggesting that we change  our nginx container image from `1.24` to `1.25` which is the current latest tag. If we’re happy with the change we can merge it into our code with just a click.
+If we [look at this PR](https://github.com/sunbakedemo/k8s-renovate/pull/1) we can see the proposed changes, it's suggesting that we change  our nginx container image from `1.24` to `1.25` which is the current latest tag. If we’re happy with the change we can merge it into our code with just a click.
 
 ## How to Handle “latest” tag
 
